@@ -1,0 +1,38 @@
+name: run
+version: 0.0.1
+
+usage: helm run [--verbose] [--runner <sh|bash|zsh|fish|powershell|pwsh|cmd>] <chart> <script>
+description: Run scripts defined in the Chart.yaml similar to scripts in npm/package.json
+
+platformCommand:
+  # precompiled binaries for common platforms
+  - os: windows
+    arch: amd64
+    command: ${HELM_PLUGIN_DIR}/bin/helm-run_windows_amd64.exe
+  - os: windows
+    arch: arm64
+    command: ${HELM_PLUGIN_DIR}/bin/helm-run_windows_arm64.exe
+  - os: linux
+    arch: amd64
+    command: ${HELM_PLUGIN_DIR}/bin/helm-run_linux_amd64
+  - os: linux
+    arch: arm64
+    command: ${HELM_PLUGIN_DIR}/bin/helm-run_linux_arm64
+  - os: darwin
+    arch: amd64
+    command: ${HELM_PLUGIN_DIR}/bin/helm-run_darwin_amd64
+  - os: darwin
+    arch: arm64
+    command: ${HELM_PLUGIN_DIR}/bin/helm-run_darwin_arm64
+  # catch other platforms by building from source
+  - command: cd ${HELM_PLUGIN_DIR}; go run main
+
+platformHooks:
+  install:
+    - os: windows
+      command: powershell -File ${HELM_PLUGIN_DIR}/scripts/latest.ps1
+    - command: ${HELM_PLUGIN_DIR}/scripts/latest.sh
+  update:
+    - os: windows
+      command: powershell -File ${HELM_PLUGIN_DIR}/scripts/latest.ps1
+    - command: ${HELM_PLUGIN_DIR}/scripts/latest.sh
