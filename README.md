@@ -16,17 +16,22 @@ This lets you define and run repetitive tasks like linting, testing, building, o
   - Windows Commandline `cmd`
   
 > [!NOTE]
-> By default, the plugin uses `$SHELL` which is the parent shell of `helm run` command on linux and macOS.
+> By default, the plugin uses `$SHELL` which is the parent shell of the `helm run` command on linux and macOS.
 > On Windows, it uses `powershell` by default.
 
 > [!WARNING]
 > Windows Powershell `powershell` and Powershell `pwsh` are different!
-> For more information, see [this article](https://learn.microsoft.com/en-us/powershell/scripting/whats-new/differences-from-windows-powershell)
+> For more information, see [this article](https://learn.microsoft.com/en-us/powershell/scripting/whats-new/differences-from-windows-powershell).
 
 ## Requirements
 
 - Helm v3
 - For building from source: Go 1.23+
+
+> [!NOTE]
+> The plugin contains pre-built binaries for linux, macOS, and Windows with the amd64 and arm64 architectures.
+> If you are on a different platform, the plugin will try to build the binary from source.
+> This requires Go to be installed!
 
 ## Installation
 
