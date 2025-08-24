@@ -26,13 +26,3 @@ platformCommand:
     command: ${HELM_PLUGIN_DIR}/bin/helm-run_darwin_arm64
   # catch other platforms by building from source
   - command: cd ${HELM_PLUGIN_DIR}; go run main
-
-platformHooks:
-  install:
-    - os: windows
-      command: powershell -File ${HELM_PLUGIN_DIR}/scripts/latest.ps1
-    - command: ${HELM_PLUGIN_DIR}/scripts/latest.sh
-  update:
-    - os: windows
-      command: powershell -File ${HELM_PLUGIN_DIR}/scripts/latest.ps1
-    - command: ${HELM_PLUGIN_DIR}/scripts/latest.sh

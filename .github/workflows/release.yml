@@ -45,30 +45,31 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: '0'
       - uses: fregante/setup-git-user@v2
       - uses: actions/setup-go@v5
         with:
           go-version: '^1.25' # The Go version to download (if necessary) and use.
-      - name: Delete tag from main branch
+      - name: Delete tag
         run: |
           git tag -d ${{ github.ref_name }}
           git push --delete origin ${{ github.ref }}
-      - name: Create new branch from tag
-        run: git checkout -b release/${{ github.ref_name }}
       - name: Set version in plugin.yaml
         run: |
           tag=${{ github.ref_name }}
           tag=${tag#v} yq e -i '.version = env(tag)' plugin.yaml
+      - run: make clean
       - run: make
       - name: Commit plugin.yaml and binaries
         run: | 
           git add -f plugin.yaml
           git add -f bin
-          git commit -m "ci: built binaries for ${{ github.ref_name }}"
+          git commit -m "Release ${{ github.ref_name }}"
       - name: Tag and push
         run: |
           git tag ${{ github.ref_name }}
-          git push origin release/${{ github.ref_name }} --follow-tags --force
+          git push origin HEAD:main --follow-tags
       - name: Create github release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

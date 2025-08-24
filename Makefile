@@ -24,5 +24,4 @@ bin/helm-run_darwin_arm64:
 
 clean:
 	go clean || true
-	rm -r bin
-
+	rm -rf bin
