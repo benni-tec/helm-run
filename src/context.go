@@ -94,8 +94,7 @@ func parseCommand() []string {
 	}
 
 	if *help {
-		// TODO: header
-		flag.Usage()
+		printUsage()
 		os.Exit(0)
 	}
 
@@ -103,8 +102,7 @@ func parseCommand() []string {
 
 	args := flag.Args()
 	if len(args) < 2 {
-		// TODO: header
-		flag.Usage()
+		printUsage()
 		os.Exit(0)
 	}
 
@@ -134,4 +132,10 @@ func defaultRunner() string {
 	}
 
 	return ""
+}
+
+func printUsage() {
+	fmt.Printf("Usage: helm-run [flags] <chart> <script> [script-args]\n\n")
+	fmt.Printf("Flags:\n")
+	flag.PrintDefaults()
 }

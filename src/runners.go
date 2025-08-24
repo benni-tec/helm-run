@@ -92,7 +92,6 @@ func createTempWithContent(pattern, content string) (string, error) {
 	return tmp.Name(), nil
 }
 
-// TODO: this might need be adjusted for different runners
 func (r Runner) args(tmp string, scriptArgs []string) []string {
 	var runnerArgs []string
 	if strings.TrimSpace(CurrentContext.RunnerArgs) != "" {
