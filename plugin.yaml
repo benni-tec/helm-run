@@ -1,5 +1,5 @@
 name: run
-version: 0.1.1
+version: 0.1.2
 usage: helm run [--verbose] [--runner <sh|bash|zsh|fish|powershell|pwsh|cmd>] <chart> <script>
 description: Run scripts defined in the Chart.yaml similar to scripts in npm/package.json
 platformCommand:
